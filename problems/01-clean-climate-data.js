@@ -1,5 +1,5 @@
 /**************DO NOT MODIFY THIS LINE BELOW*****************/
-const climateData = require('../climate-data')
+const climateData = require("../climate-data");
 
 /* 01. `listAllCitiesWithCountries`
 What are all of the cities included in the data set?
@@ -12,8 +12,17 @@ For example, it should return:
 */
 
 // Your code here
+const listAllCitiesWithCountries = (array) => {
+  let res = [];
 
-
+  for (let i = 0; i < array.length; i++) {
+    let object = array[i];
+    res.push(object["city"] + ", " + object["country"]);
+  }
+  //console.log(res);
+  return res;
+};
+//listAllCitiesWithCountries(climateData);
 /* 02. `listAllUsCities`
 What are all of the United States cities included in the data set?
 
@@ -25,9 +34,20 @@ For example, it should return:
 */
 
 // Your code here
+const listAllUsCities = (array) => {
+  let res = [];
 
+  for (let i = 0; i < array.length; i++) {
+    let object = array[i];
 
-
+    if (object["country"] === "United States") {
+      res.push(object["city"] + ", " + object["country"]);
+    }
+  }
+  //console.log(res);
+  return res;
+};
+//listAllUsCities(climateData);
 /* 03. `findDuplicates` What cities are included more than once in the data?
 
 Write a function, `findDuplicates` that finds all duplicate cities. Return an
@@ -39,8 +59,21 @@ was duplicated in id 3, 7, and 9, the returned object should look like:
 */
 
 // Your code here
+const findDuplicates = (array) => {
+  let res = {};
 
+  for (let i = 0; i < array.length; i++) {
+    let object = array[i];
 
+    if (object["city"] in res) {
+      res[object["city"]].push(object["id"]);
+    } else {
+      res[object["city"]] = [object["id"]];
+    }
+  }
+  //console.log(res);
+  return res;
+};
 /* 04. `returnDuplicate` Which city object should be corrected in
 the data set?
 
@@ -56,6 +89,30 @@ but do not have to, use this method to solve this problem.
 
 // Your code here
 
+const returnDuplicate = (array) => {
+  let res = {};
+
+  for (let i = 0; i < array.length; i++) {
+    let object = array[i];
+
+    if (object["city"] in res) {
+      res[object["city"]].push(object["id"]);
+    } else {
+      res[object["city"]] = [object["id"]];
+    }
+    for (let cities in res) {
+      //console.log(cities);
+      if (cities === "Paris") {
+        console.log(cities);
+        //res[cities];
+      }
+    }
+  }
+  //console.log(res);
+  return res;
+};
+returnDuplicate(climateData);
+
 /* 05. `correctDuplicate` Correct the city name of the duplicated city.
 
 Write a function, `correctDuplicate` that finds the ONE duplicated city,
@@ -69,9 +126,26 @@ HINT: Can you use functions you have already written to help solve this problem?
 */
 
 // Your code here
+const correctDuplicate = (array) => {
+  let res = {};
 
+  for (let i = 0; i < array.length; i++) {
+    let object = array[i];
 
+    if (object["city"] in res) {
+      res[object["city"]].push(object["id"]);
+    } else {
+      res[object["city"]] = [object["id"]];
+    }
+  }
+  return res;
+};
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
 
-module.exports = [ listAllCitiesWithCountries, listAllUsCities, findDuplicates,
-    returnDuplicate, correctDuplicate ];
+module.exports = [
+  listAllCitiesWithCountries,
+  listAllUsCities,
+  findDuplicates,
+  returnDuplicate,
+  correctDuplicate,
+];
